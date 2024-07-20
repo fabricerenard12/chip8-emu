@@ -195,12 +195,13 @@ func (c *Chip8) opDxyn() {
 			if (pixel & (0x80 >> xline)) != 0 {
 				var xCoord uint8 = (x + uint8(xline)) % VIDEO_WIDTH
 				var yCoord uint8 = (y + uint8(yline)) % VIDEO_HEIGHT
+				index := xCoord + (yCoord * VIDEO_WIDTH)
 
-				if c.video[xCoord+(yCoord*VIDEO_WIDTH)] == 1 {
+				if c.video[index] == 1 {
 					c.registers[0xF] = 1
 				}
 
-				c.video[xCoord+(yCoord*VIDEO_WIDTH)] ^= 1
+				c.video[index] ^= 1
 			}
 		}
 	}
